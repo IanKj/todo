@@ -1,0 +1,21 @@
+body {
+    background-color: blue;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.listContainer {
+    width:400px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.inputForm {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
