@@ -1,9 +1,8 @@
 export { addProject }
 
-
-
 function Project(name) {
     this.name = name;
+    this.value = name
     this.tasks = [];
 }
 

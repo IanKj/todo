@@ -15,7 +15,7 @@ function Todo(title, description, dueDate, priority) {
         }
 }
 
-
 function addTask(todo, project) {
-    project.tasks.push(todo);
+    project.push(todo);
 }
+

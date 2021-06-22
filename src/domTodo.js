@@ -43,15 +43,25 @@ const createListContainer = () => {
     listContainer.appendChild(list)
 }
 
-const createTodo = (todo) => {
-    console.log("test")
+//function to clear list
+const clearList = () => {
     let list = document.querySelector('.list')
-    let task = document.createElement('li')
-    let deleteBtn = document.createElement('span')
-    deleteBtn.innerText = 'X'
-    task.innerText = todo.title
-    task.appendChild(deleteBtn)
-    list.appendChild(task)
+    list.querySelectorAll('*').forEach(n => n.remove())
+}
+
+//clear list and add new task
+const createTodo = (currentProject) => {
+    let list = document.querySelector('.list')
+    clearList()
+    for (let projectTask of currentProject.tasks) {
+        let task = document.createElement('li')
+        let deleteBtn = document.createElement('span')
+        task.innerText = projectTask.title
+        deleteBtn.innerText = 'X'
+        task.appendChild(deleteBtn)
+        list.appendChild(task)
+
+    }
 }
 
 const addTaskEventListener = () => {
@@ -60,13 +70,29 @@ const addTaskEventListener = () => {
         const input = document.querySelector('.inputForm input')
         const inputVal = input.value
         let todo = new Todo(inputVal)
-        createTodo(todo)
-        addTask(todo, projects[0])
-        console.log(projects)
+        const projectToAddTo = checkSelectedProject()
+        addTask(todo, projectToAddTo.tasks)
+        createTodo(projectToAddTo)
+        console.dir(projects)
     }
     )
 }
 
+//check for selected project
+const checkSelectedProject = () => {
+    const currentProject = document.querySelector('.projectSelection')
+    const currentProjectValue = currentProject[currentProject.selectedIndex].value
+    let projectToReturn
+    projects.forEach(project => {
+        if (project.name === currentProjectValue) {
+            projectToReturn = project
+        }
+
+    })
+    return projectToReturn
+}
+
+//create project manager
 const createProjectContainer = () => {
     const projectContainer = document.createElement('div')
     const projectLabel = document.createElement('label')
@@ -94,6 +120,7 @@ const createProjectContainer = () => {
 
     content.appendChild(projectContainer)
     addProjectEventListener()
+    selectProjectListener()
 }
 
 const createDefaultProject = () => {
@@ -123,4 +150,15 @@ const setProjects = (projectName) => {
     newProject.value = projectName
     newProject.innerText = projectName
     projectList.appendChild(newProject)
+}
+
+//project event listener
+const selectProjectListener = () => {
+    const projectSelection = document.querySelector('.projectSelection')
+    projectSelection.addEventListener('change', e => {
+        console.dir(e.target[e.target.selectedIndex].value)
+        const projectToAddTo = checkSelectedProject()
+
+        createTodo(projectToAddTo)
+    })
 }

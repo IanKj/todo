@@ -1,5 +1,9 @@
 add button has event listener
     adds to current project
+    current project is set by select 
+        checks selected Project
+            loop over projects for same name
+                task get's added to project
 
 project array
     keeps track of seperate projects
@@ -10,4 +14,10 @@ project array
                 title, dueDate, completed...etc
             
 
-when I add a todo, it updates the project
+select menu event listener 
+    user picks new category 
+        todo list refreshes - only altering DOM here, not localStorage
+        (remove current LIs
+        loop function runs)
+            displays newly selected projects tasks
+                each task is an LI
