@@ -4,12 +4,11 @@ body {
 
 #content {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .listContainer {
-    width:400px;
+    width:300px;
     height: 500px;
     border: 1px solid black;
 }
@@ -18,4 +17,23 @@ body {
     width: 200px;
     display: flex;
     justify-content: center;
+}
+
+.activeProject {
+    background-color: red;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listItem span:hover {
+    cursor: pointer;
+    color: red;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }

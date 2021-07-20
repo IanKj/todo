@@ -21,3 +21,29 @@ select menu event listener
         loop function runs)
             displays newly selected projects tasks
                 each task is an LI
+
+remove list items
+    x span has event listener
+        removes attached LI from DOM and from current project tasks
+            use checkSelectedProject to find current project
+                match projects tasks Ids with id of clicked LI
+            
+switch project selection list to custom li
+    loop through project array
+    li inner text = project's title
+    add event listener 
+        rela
+
+need to implement {
+    remove project
+    //space the li out
+    make it look good
+    add basic validation
+        //no duplicates
+        add css for when a duplicate entry is made
+        //no empty
+        //max characters
+    //convert select option list into a custom select field
+    add local storage
+    
+}

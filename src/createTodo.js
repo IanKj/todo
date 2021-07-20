@@ -6,16 +6,18 @@ function Todo(title, description, dueDate, priority) {
         this.description = description,
         this.dueDate = dueDate,
         this.priority = priority,
-        this.remove = function (selectedProject) {
-            console.dir(this)
-            let taskArr = selectedProject.tasks
-            let taskIndex = taskArr.findIndex(task => task.title === this.title)
-            selectedProject.tasks.splice(taskIndex, 1)
+        this.id = Date.now()
 
-        }
 }
 
 function addTask(todo, project) {
+    todo.remove = function () {
+        console.dir(project)
+        let taskArr = project
+        let taskIndex = taskArr.findIndex(task => task.title === todo.title)
+        project.splice(taskIndex, 1)
+
+    }
     project.push(todo);
 }
 

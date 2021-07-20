@@ -1,13 +1,13 @@
 export { addProject }
 
-function Project(name) {
-    this.name = name;
-    this.value = name
+function Project(title) {
+    this.title = title;
+    this.value = title
     this.tasks = [];
 }
 
-function addProject(name, project) {
-    const newProject = new Project(name)
-    project.push(newProject)
+function addProject(title, projects) {
+    const newProject = new Project(title)
+    projects.push(newProject)
 
 }
