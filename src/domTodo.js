@@ -7,7 +7,8 @@ export default function renderPage() {
 
 import { Todo, addTask } from './createTodo.js'
 import { addProject } from './projects.js'
-import { checkForDuplicate } from './helpers.js'
+import { checkForDuplicate, createEditDiv, createEditOptions } from './helpers.js'
+import moreImg from './images/more.png'
 
 let projects = []
 
@@ -96,14 +97,18 @@ const addRemoveEventListener = (span, todo) => {
         todo.remove()
     })
 }
+
+
 //project code
+
+
 
 //check for selected project, returns OBJECT of current project
 const getCurrProjectObject = () => {
     const selectedProject = document.querySelector('.activeProject')
     let projectToReturn
     projects.forEach(project => {
-        if (project.title === selectedProject.innerText) {
+        if (project.title === selectedProject.childNodes[0].nodeValue) {
             projectToReturn = project
         }
     })
@@ -122,6 +127,7 @@ const createProjectContainer = () => {
 
     projectContainer.classList.add('projectContainer')
     addProject.classList.add('addProject')
+    addProject.placeholder = '  create a new project...'
     addProjectBtn.classList.add('addProjectBtn')
     projectSelectionContainer.classList.add('projectSelectionContainer')
     projectSelectionList.classList.add('projectSelectionList')
@@ -146,12 +152,9 @@ const createProjectContainer = () => {
 
 //initialize project management field
 const createDefaultProject = () => {
-    const defaultProject = document.createElement('li')
-    defaultProject.classList.add('activeProject')
-    defaultProject.innerText = 'Daily Tasks'
-    addProject(defaultProject.innerText, projects)
-    setProjects(defaultProject.innerText)
-    return defaultProject
+    const defaultProject = 'Daily Tasks'
+    addProject(defaultProject, projects)
+    setProjects(defaultProject)
 }
 
 //listen to add project button and add to projects array and DOM
@@ -177,14 +180,48 @@ const setProjects = (projectName) => {
     }
     const newProject = document.createElement('li')
     newProject.innerText = projectName
+
+    //create options dropdown menu
+    const editProjectWrapper = document.createElement('div')
+    editProjectWrapper.classList.add('editProjectWrapper')
+    const editProject = document.createElement('img')
+    editProject.src = moreImg
+    editProjectWrapper.appendChild(editProject)
+    newProject.appendChild(editProjectWrapper)
+
     newProject.classList.add('activeProject')
+
     newProject.addEventListener('click', function (e) {
         const currentProject = document.querySelector('.activeProject')
-        currentProject.classList.remove('activeProject')
-        e.target.classList.add('activeProject')
-        reloadTodoList(getCurrProjectObject())
+        if (currentProject) {
+            currentProject.classList.remove('activeProject')
+        }
+        e.currentTarget.classList.add('activeProject')
+        //create div with project options
+        createEditOptions(e)
+        if (e.target == e.currentTarget) {
+            reloadTodoList(getCurrProjectObject())
+        }
+        //event listener to remove project
+        removeProjectHandler()
     })
     projectList.appendChild(newProject)
+}
+
+const removeProjectHandler = function () {
+    const removeProject = document.querySelector('#removeProject')
+    if (removeProject) {
+        removeProject.addEventListener('click', e => {
+            const activeDomProject = document.querySelector('.activeProject')
+            const currProject = getCurrProjectObject()
+            console.dir(currProject)
+            console.dir(e.target)
+            currProject.remove(projects, activeDomProject.childNodes[0].nodeValue)
+            activeDomProject.remove()
+            console.log(projects)
+        })
+    }
+
 }
 
 //relead list, to be used when switching between projects

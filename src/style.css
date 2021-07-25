@@ -37,3 +37,36 @@ ul {
     list-style: none;
     padding: 0;
 }
+
+.projectSelectionList li img {
+    opacity: 0;
+}
+
+.projectSelectionList li:hover img {
+    opacity: 1;
+}
+
+.projectSelectionList li img:hover{
+    transform: scale(1.1)
+}
+
+.projectSelectionList li:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.projectSelectionList li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.editProjectWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.editProjectContent{
+    position:absolute;
+    background-color: pink;
+    z-index: 1;
+}
